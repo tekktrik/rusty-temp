@@ -1,0 +1,37 @@
+[package]
+name = "rusty"
+version = "0.1.0"
+edition = "2021"
+authors = ["Alec Delaney"]
+repository = "https://github.com/tekktrik/rusty"
+description = "Just a trial!"
+
+[package.metadata.wix]
+upgrade-guid = "07C3B5B8-4057-4E29-8A95-126921951CC8"
+path-guid = "FBE0D7BF-D16E-47C2-86BD-912B0D9C9631"
+license = false
+eula = false
+
+[dependencies.clap]
+version = "4.5.20"
+features = ["derive"]
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.22.1"
+# CI backends to support
+ci = "github"
+# The installers to generate for each app
+installers = ["shell", "msi"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
+# Path that installers should place binaries in
+install-path = "CARGO_HOME"
+# Whether to install an updater program
+install-updater = true
